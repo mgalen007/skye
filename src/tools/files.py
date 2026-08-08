@@ -18,3 +18,11 @@ async def write_file_raw(
     """Tool to write content to a file"""
     async with aiofiles.open(path, "w") as f:
         await f.write(content)
+
+@skye.tool_plain
+async def read_file_raw(
+    path: Annotated[Path, Field(description="The path of the file you want to read")]
+) -> str:
+    """Tool to read a file"""
+    async with aiofiles.open(path, "r") as f:
+        return await f.read()
