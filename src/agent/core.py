@@ -17,3 +17,8 @@ skye = Agent(
     )
 )
 
+if __name__ == "__main__":
+    async def test_agent():
+        result = await skye.run("Write me a haiku about H.E Paul Kagame")
+        print(result.output)
+    asyncio.run(test_agent())
