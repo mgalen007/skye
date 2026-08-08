@@ -3,6 +3,7 @@ from pydantic_ai.models.openai import OpenAIResponsesModel
 from pydantic_ai import Agent
 from pydantic_ai.capabilities import WebSearch
 from dotenv import load_dotenv
+from src.agent.deps import SkyeDeps
 import os, asyncio
 
 load_dotenv()
@@ -16,7 +17,8 @@ skye = Agent(
             api_key=os.getenv("OPENROUTER_API_KEY")
         )
     ),
-    capabilities=[WebSearch()]
+    capabilities=[WebSearch()],
+    deps_type=SkyeDeps
 )
 
 if __name__ == "__main__":
