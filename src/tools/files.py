@@ -8,8 +8,10 @@ from typing import Annotated
 import aiofiles
 
 def resolve_safe(root: Path, user_path: Path) -> Path:
+    if user_path.is_absolute():
+        raise ValueError(f"Absolute paths not allowed: {user_path}")
     candidate = (root / user_path).resolve()
-    if not candidate.is_relative_to(root.resolve()):
+    if not candidate.is_relative_to(root):
         raise ValueError(f"Path not in workspace: {user_path}")
     return candidate
 
