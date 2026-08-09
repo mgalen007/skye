@@ -1,9 +1,9 @@
 from pathlib import Path
-from src.agent.core import skye
+from agent.core import skye
 from pydantic import Field
 from pydantic_ai.tools import RunContext
 from pydantic_ai import ModelRetry
-from src.agent.deps import SkyeDeps
+from agent.deps import SkyeDeps
 from typing import Annotated
 import aiofiles
 
@@ -22,10 +22,15 @@ async def write_file_raw(
     content: Annotated[str, Field(description="The content of the file")]
 ) -> str:
     """Tool to write content to a file"""
+    print("Using tool: write_file_raw")
     try:
         safe_path = resolve_safe(ctx.deps.workspace_root, path)
     except ValueError as e:
-        raise ModelRetry(str(e)) from e
+        raise ModelRetry(
+            f"'{path}' is outside the workspace. Paths must be relative to the "
+            f"workspace root, with no leading '/' or '\\' and no drive letter. "
+            f"Example: 'README.md' or 'src/main.py'."
+        ) from e
 
     try:
         safe_path.parent.mkdir(parents=True, exist_ok=True)
@@ -41,10 +46,15 @@ async def read_file_raw(
     path: Annotated[Path, Field(description="The path to the file you want to read")]
 ) -> str:
     """Tool to read a file"""
+    print("Using tool read_file_raw")
     try:
         safe_path = resolve_safe(ctx.deps.workspace_root, path)
     except ValueError as e:
-        raise ModelRetry(str(e)) from e
+        raise ModelRetry(
+            f"'{path}' is outside the workspace. Paths must be relative to the "
+            f"workspace root, with no leading '/' or '\\' and no drive letter. "
+            f"Example: 'README.md' or 'src/main.py'."
+        ) from e
 
     try: 
         async with aiofiles.open(safe_path, "r") as f:

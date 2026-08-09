@@ -1,12 +1,14 @@
 from agent.core import skye
+from agent.deps import SkyeDeps
 from rich import print
 from rich.prompt import Prompt
+import tools.files
 import asyncio
 
 async def loop():
     while True:
         prompt = Prompt.ask("[bold cyan]User[/bold cyan]")
-        result = await skye.run(prompt)
+        result = await skye.run(prompt, deps=SkyeDeps(workspace_root="./workspace"))
         print(f"[bold red]Skye: [/bold red]{result.output}")
 
 if __name__ == "__main__":
