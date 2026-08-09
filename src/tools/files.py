@@ -16,13 +16,13 @@ def resolve_safe(root: Path, user_path: Path) -> Path:
     return candidate
 
 @skye.tool
-async def write_file_raw(
+async def write_file(
     ctx: RunContext[SkyeDeps],
     path: Annotated[Path, Field(description="The path where the file will be written")],
     content: Annotated[str, Field(description="The content of the file")]
 ) -> str:
     """Tool to write content to a file"""
-    print("Using tool: write_file_raw")
+    print("Using tool: write_file")
     try:
         safe_path = resolve_safe(ctx.deps.workspace_root, path)
     except ValueError as e:
@@ -41,12 +41,12 @@ async def write_file_raw(
         raise ModelRetry(f"Failed to write {path}: {e}") from e
 
 @skye.tool
-async def read_file_raw(
+async def read_file(
     ctx: RunContext[SkyeDeps],
     path: Annotated[Path, Field(description="The path to the file you want to read")]
 ) -> str:
     """Tool to read a file"""
-    print("Using tool read_file_raw")
+    print("Using tool read_file")
     try:
         safe_path = resolve_safe(ctx.deps.workspace_root, path)
     except ValueError as e:
