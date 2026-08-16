@@ -61,3 +61,12 @@ async def read_file(
             return await f.read()
     except OSError as e:
         raise ModelRetry(f"Failed to read {safe_path}: {e}") from e
+
+@skye.tool_plain
+def get_cwd() -> Path:
+    """Tool to get the current working directory"""
+    try:
+        print("Using tool: get_cwd")
+        return Path.cwd().resolve()
+    except OSError as e:
+        raise ModelRetry(f"Failed to get current working directory: {e}") from e
