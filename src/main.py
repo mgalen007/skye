@@ -6,9 +6,16 @@ import tools.files
 import asyncio
 
 async def loop():
+    message_history = []
+
     while True:
         prompt = Prompt.ask("[bold cyan]User[/bold cyan]")
-        result = await skye.run(prompt, deps=SkyeDeps(workspace_root="./workspace"))
+        result = await skye.run(
+            prompt, 
+            deps=SkyeDeps(workspace_root="./workspace"), 
+            message_history=message_history
+        )
+        message_history = result.all_messages()
         print(f"[bold red]Skye: [/bold red]{result.output}")
 
 if __name__ == "__main__":
