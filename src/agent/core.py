@@ -3,7 +3,7 @@ from pydantic_ai.models.openai import OpenAIResponsesModel
 from pydantic_ai import Agent
 from pydantic_ai.capabilities import WebSearch
 from dotenv import load_dotenv
-from src.agent.deps import SkyeDeps
+from agent.deps import SkyeDeps
 import os, asyncio
 
 load_dotenv()
@@ -16,6 +16,10 @@ skye = Agent(
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("OPENROUTER_API_KEY")
         )
+    ),
+    system_prompt=(
+        "You are a helpful assistant AI agent. "
+        "Always work from the provided workspace. Do not work outside of it."
     ),
     capabilities=[WebSearch()],
     deps_type=SkyeDeps
