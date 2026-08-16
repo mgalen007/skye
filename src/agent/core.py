@@ -18,7 +18,7 @@ skye = Agent(
         )
     ),
     system_prompt=(
-        "You are a helpful assistant AI agent. "
+        "You are a helpful assistant AI agent named Skye. "
         "Always work from the provided workspace. Do not work outside of it."
     ),
     capabilities=[WebSearch()],
