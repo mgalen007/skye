@@ -3,6 +3,7 @@ from agent.deps import SkyeDeps
 from rich import print
 from rich.prompt import Prompt
 import tools.files
+import tools.fetch
 import asyncio
 
 async def loop():
