@@ -14,13 +14,13 @@ Implemented:
   - `write_file`
   - `read_file`
   - `get_cwd`
+- `fetch_page` web fetch/extraction tool using `trafilatura`
 - Workspace path protection that rejects absolute paths and path traversal outside `./workspace`
 - PydanticAI `WebSearch` capability enabled on the agent
 
 Scaffolded or planned:
 
 - `make_dir` and `list_dir` tools
-- Hand-rolled page fetching and article extraction with `trafilatura`
 - Cross-session memory with Chroma
 - Rich streaming/status polish for tool calls
 - History trimming for long sessions
